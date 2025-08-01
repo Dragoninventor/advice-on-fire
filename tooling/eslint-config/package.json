@@ -1,0 +1,11 @@
+{
+	"name": "@adviceonfire/lint",
+	"files": [
+		"next.js"
+	],
+	"devDependencies": {
+		"eslint": "^9.26.0",
+		"eslint-config-turbo": "^2.5.3",
+		"@next/eslint-plugin-next": "latest"
+	}
+}

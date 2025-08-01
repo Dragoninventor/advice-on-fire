@@ -1,0 +1,22 @@
+{
+	"name": "advice-on-fire",
+	"version": "0.1.0",
+	"main": "index.js",
+	"private": true,
+	"type": "module",
+	"workspaces": [
+		"apps/*",
+		"tooling/*"
+	],
+	"scripts": {
+		"dev": "turbo run dev",
+		"build": "turbo run build"
+	},
+	"devDependencies": {
+		"@adviceonfire/lint": "workspace:*",
+		"prettier": "^3.5.3",
+		"prettier-plugin-tailwindcss": "^0.6.11",
+		"turbo": "^2.5.3"
+	},
+	"packageManager": "npm@11.3.0"
+}

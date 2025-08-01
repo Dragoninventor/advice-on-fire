@@ -1,0 +1,342 @@
+@use "apps/website/app/variables.module";
+@use "apps/website/app/colors";
+
+#home {
+	display: grid;
+
+	h1#firstLevelHeader {
+		position: absolute;
+		visibility: hidden;
+	}
+
+	#postsNavigationToolbar {
+		padding: 15px;
+		border-radius: variables.$border-radius;
+		background: white;
+	}
+
+	#postsContainer {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+
+		#firstRow {
+			display: contents;
+		}
+
+		.category {
+			.post {
+				display: grid;
+				grid-template-rows: minmax(min-content, 25vh) auto;
+
+				.postImageWrapper {
+					position: relative;
+					display: flex;
+					align-items: center;
+
+					justify-content: center;
+
+					margin: 5px;
+					border-radius: variables.$border-radius;
+
+					&:after {
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						content: "";
+						border-radius: variables.$border-radius;
+						box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0 inset;
+					}
+
+					.postImage {
+						border-radius: variables.$border-radius;
+						object-fit: cover;
+					}
+				}
+
+				.postContent {
+					h3 {
+						a {
+							font-size: 2em;
+							transition: color 0.2s;
+							text-decoration: none;
+							color: #000000;
+
+							&:hover {
+								color: colors.$fire;
+							}
+						}
+					}
+
+					p {
+						.continueReading {
+							display: block;
+							width: fit-content;
+							margin: 1.5rem auto 0 auto;
+							padding: 0.25em 1em;
+							transition: all 0.2s;
+							text-decoration: none;
+							color: #505050;
+							border: 1px solid #e5e5e5;
+							border-radius: 5px;
+							background: white;
+							box-shadow: rgba(99, 99, 99, 0.0) 0 2px 4px 0;
+
+							&:hover {
+								color: #252525;
+								border-color: #a0a0a0;
+							}
+						}
+					}
+				}
+			}
+
+			&#featuredArticlesCategory {
+				.post {
+					&:first-of-type {
+						&:before {
+							content: "Featured Articles";
+						}
+					}
+
+					#featuredArticleNextWrapper {
+						position: absolute;
+						top: calc(50% - 40px);
+						right: -40px;
+						display: none;
+						transition: all 0.2s;
+
+						&:hover {
+							right: -45px;
+						}
+
+						button#featuredArticleNext {
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							width: 80px;
+							height: 80px;
+							cursor: pointer;
+							border: none;
+
+							border-radius: 50%;
+							background: white;
+							box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+
+							img#featuredArticleNextImage {
+								width: 20px;
+								height: auto;
+							}
+						}
+					}
+				}
+			}
+
+			&#latestPostCategory {
+				.post {
+					&:first-of-type {
+						&:before {
+							content: "Latest Post";
+						}
+					}
+				}
+			}
+
+			&#recentPostsCategory {
+				.post {
+					&:first-of-type {
+						&:before {
+							content: "Recent Posts";
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: variables.$mobile-breakpoint) {
+	#home {
+		grid-template-columns: 1fr;
+		//gap: 15px;
+
+		#postsContainer {
+			.category {
+				.post {
+				}
+
+				.post:first-of-type {
+					margin-top: 2rem;
+				}
+
+				&#featuredArticlesCategory {
+					.post {
+						.postContent {
+							p:first-of-type {
+								margin-bottom: 0;
+							}
+
+							p:not(:first-of-type) {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: variables.$tablet-breakpoint) and (max-width: variables.$desktop-breakpoint) {
+	#home {
+		//gap: 3rem;
+
+		#postsContainer {
+			//grid-template-columns: repeat(2, 1fr);
+			//gap: 3rem;
+
+			// noinspection CssInvalidPropertyValue
+			//@supports (grid-template-rows: masonry) {
+			//	grid-template-columns: repeat(2, 1fr);
+			//	grid-template-rows: masonry;
+			//	masonry-auto-flow: next;
+			//
+			//	.category > .post {
+			//		height: fit-content;
+			//	}
+			//}
+
+			.category {
+				.post {
+					.postContent {
+						p {
+							span {
+								margin-right: 0.25em;
+							}
+
+							.continueReading {
+								display: inline;
+								white-space: nowrap;
+							}
+						}
+					}
+				}
+			}
+
+			.category#featuredArticlesCategory {
+				.post {
+					display: grid;
+					grid-template-rows: 1fr;
+					grid-template-columns: 1fr 1fr;
+					grid-column: 1 / 3;
+
+					.postImageWrapper {
+						position: relative;
+						display: flex;
+						align-items: center;
+
+						justify-content: center;
+						margin: 5px 0 5px 5px;
+
+						border-radius: 15px;
+
+						.postImage {
+							border-radius: 15px;
+							object-fit: cover;
+						}
+					}
+
+					.postContent {
+						position: relative;
+						overflow: hidden;
+						max-height: 35vh;
+
+						&:after {
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+							content: "";
+							pointer-events: none;
+							background: linear-gradient(transparent 65%, white);
+						}
+
+						h3#featuredArticleTitle {
+							a {
+								font-size: 2em;
+								transition: color 0.2s;
+								text-decoration: none;
+								color: #000000;
+
+								&:hover {
+									color: colors.$fire;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: variables.$desktop-breakpoint) {
+
+}
+
+@media screen and (min-width: variables.$large-desktop-breakpoint) {
+	#home {
+		//gap: 4rem;
+
+		#postsContainer {
+			//gap: 4rem;
+			//grid-template-columns: repeat(3, 1fr);
+
+			#firstRow {
+				display: grid;
+				grid-column: 1 / 4;
+				grid-template-columns: repeat(3, 1fr);
+				//gap: 4rem;
+			}
+
+			.category {
+				&#featuredArticlesCategory {
+					.post {
+						#featuredArticleNextWrapper {
+							position: absolute;
+							top: calc(50% - 40px);
+							right: -40px;
+							transition: all 0.2s;
+
+							&:hover {
+								right: -45px;
+							}
+
+							button#featuredArticleNext {
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								width: 80px;
+								height: 80px;
+								cursor: pointer;
+								border: none;
+
+								border-radius: 50%;
+								background: white;
+								box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+
+								img#featuredArticleNextImage {
+									width: 20px;
+									height: auto;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

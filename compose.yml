@@ -1,0 +1,65 @@
+services:
+    website:
+        image: ghcr.io/dragoninventor/advice-on-fire/website:latest
+        restart: unless-stopped
+        env_file:
+            - .env.local
+        #        build:
+        #            context: .
+        #            dockerfile: apps/website/Dockerfile
+        #            secrets:
+        #                - DOTENV_PRIVATE_KEY_PRODUCTION
+        ports:
+            - '3000:3000'
+        volumes:
+            - .:/home/node/app
+            - payload-data:/app/apps/website/public
+            - node_modules:/home/node/app/node_modules
+        working_dir: /home/node/app/
+        depends_on:
+            - mongo
+        expose:
+            - 3000
+        environment:
+            - NODE_PORT=${NODE_PORT:-3000}
+
+    mongo:
+        restart: always
+        image: mongo:latest
+        ports:
+            - "27017:27017"
+        command:
+            - --storageEngine=wiredTiger
+        volumes:
+            - data:/data/db
+
+    caddy:
+        image: caddy:latest
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: tooling/caddy/Dockerfile
+        ports:
+            - "80:80"
+            - "443:443"
+            - "443:443/udp"
+        volumes:
+            - caddy_data:/data
+            - caddy_config:/config
+        depends_on:
+            - website
+        environment:
+            - DOMAIN=adviceonfire.com
+
+volumes:
+    data:
+        external: true
+    payload-data:
+        external: true
+    node_modules:
+    caddy_data:
+    caddy_config:
+
+secrets:
+    DOTENV_PRIVATE_KEY_PRODUCTION:
+        environment: DOTENV_PRIVATE_KEY_PRODUCTION

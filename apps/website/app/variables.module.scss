@@ -1,0 +1,31 @@
+// General
+$border-radius: 15px;
+
+// Media Queries
+$mobile-breakpoint: calc(65rem - 1px);
+$tablet-breakpoint: 65rem;
+$desktop-breakpoint: 65rem;
+$large-desktop-breakpoint: 125rem;
+
+// Site Layout
+$site-padding-x-desktop: 60px;
+$site-padding-y-desktop: 15px;
+$site-gap-desktop: 45px;
+
+$site-gap-mobile: 15px;
+
+// Header
+$header-height-mobile: 100px;
+$header-height-desktop: 35vh;
+
+$header-border-radius: $border-radius;
+
+// Card
+$card-content-max-width: 48rem;
+$card-content-margin-x: 5%;
+$card-content-margin-y: 3rem;
+
+:export {
+	mobileBreakpoint: $mobile-breakpoint;
+	desktopBreakpoint: $large-desktop-breakpoint;
+}
