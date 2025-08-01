@@ -7,6 +7,10 @@ on:
             - turbo.json
             - apps/website/**
             - .github/workflows/deploy-website.yaml
+            - compose.yml
+            - package.json
+            - package-lock.json
+            - .dockerignore
 
 permissions:
     contents: read
