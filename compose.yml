@@ -1,3 +1,5 @@
+name: advice-on-fire
+
 services:
     website:
         image: ghcr.io/dragoninventor/advice-on-fire/website:latest
@@ -9,19 +11,12 @@ services:
         #            dockerfile: apps/website/Dockerfile
         #            secrets:
         #                - DOTENV_PRIVATE_KEY_PRODUCTION
-        ports:
-            - '3000:3000'
         volumes:
-            - .:/home/node/app
             - payload-data:/app/apps/website/public
             - node_modules:/home/node/app/node_modules
         working_dir: /home/node/app/
         depends_on:
             - mongo
-        expose:
-            - 3000
-        environment:
-            - NODE_PORT=${NODE_PORT:-3000}
 
     mongo:
         restart: always
@@ -34,7 +29,6 @@ services:
             - data:/data/db
 
     caddy:
-        image: caddy:latest
         restart: unless-stopped
         build:
             context: .
