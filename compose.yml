@@ -6,23 +6,15 @@ services:
         restart: unless-stopped
         env_file:
             - .env.local
-        #        build:
-        #            context: .
-        #            dockerfile: apps/website/Dockerfile
-        #            secrets:
-        #                - DOTENV_PRIVATE_KEY_PRODUCTION
         volumes:
             - payload-data:/app/apps/website/public
-            - node_modules:/home/node/app/node_modules
-        working_dir: /home/node/app/
+        working_dir: /app
         depends_on:
             - mongo
 
     mongo:
         restart: always
         image: mongo:latest
-        ports:
-            - "27017:27017"
         command:
             - --storageEngine=wiredTiger
         volumes:
@@ -50,9 +42,10 @@ volumes:
         external: true
     payload-data:
         external: true
-    node_modules:
     caddy_data:
+        name: "${COMPOSE_PROJECT_NAME}_caddy_data"
     caddy_config:
+        name: "${COMPOSE_PROJECT_NAME}_caddy_config"
 
 secrets:
     DOTENV_PRIVATE_KEY_PRODUCTION:
