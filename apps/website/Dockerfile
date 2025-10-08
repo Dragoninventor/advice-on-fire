@@ -43,6 +43,4 @@ COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/standalone .
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/static ./apps/website/.next/static
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/public ./apps/website/public
 
-WORKDIR /app/apps/website
-
-CMD ["dotenvx", "run", "-f", ".env.production", "--", "node", "server.js"]
+CMD ["dotenvx", "run", "-f", "apps/website/.env.production", "--cd", "apps/website", "--", "node", "server.js"]
