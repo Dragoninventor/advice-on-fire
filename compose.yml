@@ -22,9 +22,7 @@ services:
 
     caddy:
         restart: unless-stopped
-        build:
-            context: ./tooling/caddy
-            dockerfile: Dockerfile
+        image: ghcr.io/dragoninventor/advice-on-fire/caddy:latest
         ports:
             - "80:80"
             - "443:443"
