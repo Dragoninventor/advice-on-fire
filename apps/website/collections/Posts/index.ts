@@ -4,10 +4,7 @@ import { authenticatedOrPublished } from "@/access/authenticatedOrPublished";
 import { HeadingFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { authenticated } from "@/access/authenticated";
 import { populateAuthors } from "@/collections/Posts/hooks/populateAuthors";
-import {
-	revalidateDelete,
-	revalidatePost,
-} from "@/collections/Posts/hooks/revalidatePost";
+import { revalidateDelete, revalidatePost } from "@/collections/Posts/hooks/revalidatePost";
 
 export const Posts: CollectionConfig = {
 	slug: "posts",
@@ -164,7 +161,7 @@ export const Posts: CollectionConfig = {
 	versions: {
 		drafts: {
 			autosave: {
-				interval: 100,
+				interval: 15000,
 			},
 			schedulePublish: true,
 		},
