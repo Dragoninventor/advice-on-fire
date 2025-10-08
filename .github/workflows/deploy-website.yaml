@@ -118,6 +118,7 @@ jobs:
     deploy-website:
         runs-on: ubuntu-latest
         needs: [ build-website, build-caddy ]
+        environment: production
         steps:
             -   name: Checkout repository
                 uses: actions/checkout@v4
@@ -143,6 +144,10 @@ jobs:
                     
                         # Ensure the website directory exists
                         mkdir -p ${{ secrets.WORK_DIR }}
+                    
+                        # Create the .env.local file from the github secret
+                        echo "DOTENV_PRIVATE_KEY_PRODUCTION=${{ secrets.DOTENV_PRIVATE_KEY_WEBSITE_PRODUCTION }}" > ${{ secrets.WORK_DIR }}/.env.local
+                    
                         # Move the new compose file from /tmp to the website directory
                         mv /tmp/compose.yml ${{ secrets.WORK_DIR }}/compose.yml
                         cd ${{ secrets.WORK_DIR }}
