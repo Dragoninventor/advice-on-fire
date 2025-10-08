@@ -1,13 +1,5 @@
-{$DOMAIN:localhost} {
-	handle_path /_next/static* {
-		reverse_proxy website:3000
-	}
-
-	handle_path /static* {
-		reverse_proxy website:3000
-	}
-
-	reverse_proxy / website:3000
+{$DOMAIN} {
+	reverse_proxy /* website:3000
 }
 
 www.{$DOMAIN} {
