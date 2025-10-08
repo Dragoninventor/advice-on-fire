@@ -39,6 +39,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
+# test
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/standalone ./
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/static ./apps/website/.next/static
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/public ./apps/website/public
