@@ -40,6 +40,6 @@ RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/standalone ./
-COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.env.production ./apps/website/
+COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.env.production ./.env.production
 
-CMD ["dotenvx", "run", "-f", "apps/website/.env.production", "--", "node", "server.js"]
+CMD ["dotenvx", "run", "-f", ".env.production", "--", "node", "server.js"]
