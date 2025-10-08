@@ -130,8 +130,20 @@ jobs:
 
             -   name: Deploy to server
                 run: |
+                    # Copy the docker-compose.yml file to the server
+                    scp -r compose.yml ${{ secrets.WORK_DIR }}
+                    
+                    # Connect to the server to create website directory, move the compose.yml file there, and start the containers
                     ssh root@adviceonfire.com << 'EOF'
+                        # Exit immediately if a command exits with a non-zero status.
+                        set -e
+                    
+                        # Ensure the website directory exists
+                        mkdir -p ${{ secrets.WORK_DIR }}
+                        # Move the new compose file from /tmp to the website directory
+                        mv /tmp/compose.yml ${{ secrets.WORK_DIR }}/compose.yml
                         cd ${{ secrets.WORK_DIR }}
+                    
                         docker compose pull
                         docker compose up -d
                     EOF
