@@ -23,8 +23,8 @@ services:
     caddy:
         restart: unless-stopped
         build:
-            context: .
-            dockerfile: tooling/caddy/Dockerfile
+            context: ./tooling/caddy
+            dockerfile: Dockerfile
         ports:
             - "80:80"
             - "443:443"
