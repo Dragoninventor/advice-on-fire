@@ -1,14 +1,4 @@
-{$DOMAIN:localhost} {
-	handle_path /_next/* {
-		root * ../../apps/website/.next
-		file_server
-	}
-
-	handle {
-		root * ../../apps/website/public
-		file_server
-	}
-
+{$DOMAIN} {
 	reverse_proxy / website:3000
 }
 
