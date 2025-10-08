@@ -44,4 +44,4 @@ COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/static ./app
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/public ./apps/website/public
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.env.production ./apps/website/
 
-CMD ["dotenvx", "run", "-f", "apps/website/.env.production", "--", "node", "/app/apps/website/server.js"]
+CMD ["dotenvx", "run", "-f", "apps/website/.env.production", "--", "node", "apps/website/server.js"]
