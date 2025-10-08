@@ -134,7 +134,7 @@ jobs:
             -   name: Deploy to server
                 run: |
                     # Copy the compose.yml file to the server
-                    scp -r compose.yml ${{ secrets.WORK_DIR }}
+                    scp -r compose.yml root@adviceonfire.com:/tmp/compose.yml
                     
                     # Connect to the server to create website directory, move the compose.yml file there, and start the containers
                     ssh root@adviceonfire.com << 'EOF'
