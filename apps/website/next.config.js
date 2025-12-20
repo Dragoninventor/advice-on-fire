@@ -12,6 +12,12 @@ const nextConfig = {
 	images: {
 		unoptimized: true,
 	},
+	experimental: {
+		serverActions: {
+			// Fixes errors on image uploads
+			bodySizeLimit: '10mb'
+		}
+	}
 };
 
 export default withPayload(nextConfig);

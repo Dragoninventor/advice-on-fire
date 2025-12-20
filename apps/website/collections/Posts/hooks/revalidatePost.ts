@@ -19,7 +19,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
 		payload.logger.info(`Revalidating page at path: ${path}`);
 
 		revalidatePath(path);
-		revalidateTag("posts-sitemap");
+		revalidateTag("posts-sitemap", 'max');
 	}
 
 	if (previousDoc?._status === "published" && doc._status !== "published") {
@@ -42,7 +42,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post> = ({
 		const path = `/${doc.slug}`;
 
 		revalidatePath(path);
-		revalidateTag("posts-sitemap");
+		revalidateTag("posts-sitemap", 'max');
 	}
 
 	return doc;
