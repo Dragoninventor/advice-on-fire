@@ -14,8 +14,17 @@ export const PostPreview = async ({
 	post: Post;
 	isOdd?: boolean;
 }) => {
-	// const author = await getAuthor({ id: post.author });
 	const url = `/${post.slug}`;
+
+	const firstParagraph = post.content.root.children.filter((node) => node.type === "paragraph")
+			.slice(0, 1);
+	const postPreviewContent = {
+		...post.content,
+		root: {
+			...post.content.root,
+			children: firstParagraph.length > 0 ? firstParagraph : post.description.root.children,
+		},
+	};
 
 	return (
 		<Card
@@ -39,7 +48,7 @@ export const PostPreview = async ({
 						authors={post.populatedAuthors}
 					/>
 				)}
-				<RichText data={post.description} />
+				<RichText data={postPreviewContent} />
 				<p>
 					<Link
 						href={url}
